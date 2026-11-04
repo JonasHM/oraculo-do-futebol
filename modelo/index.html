@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>O modelo: como é feito e quanto acerta</title>
+<meta name="description" content="Metodologia do Oráculo: Dixon-Coles com memória longa, validação em 9.165 jogos, comparação com o mercado, aprendizado supervisionado e algoritmo genético.">
+<meta property="og:title" content="O modelo: como é feito e quanto acerta">
+<meta property="og:description" content="Metodologia do Oráculo: Dixon-Coles com memória longa, validação em 9.165 jogos, comparação com o mercado, aprendizado supervisionado e algoritmo genético.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta name="theme-color" content="#0B3A27">
+<link rel="icon" href="../assets/icone.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+
+</head>
+<body data-page="modelo" data-root="../">
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../" aria-label="Oráculo do Futebol, início">
+      <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="13" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M15 2v26M2 15h26" stroke="currentColor" stroke-width="1.4" opacity=".5"/><circle cx="15" cy="15" r="5" fill="var(--canarinho)"/></svg>
+      Oráculo
+    </a>
+    <nav class="nav" id="nav" aria-label="Páginas do portal">
+      <a href="../">Início</a>
+      <a href="../serie-a/">Série A</a>
+      <a href="../serie-b/">Série B</a>
+      <a href="../copa-do-brasil/">Copa do Brasil</a>
+      <a href="../libertadores/">Libertadores</a>
+      <a href="../sul-americana/">Sul-Americana</a>
+      <a href="../acerto-2026/">Acerto 2026</a>
+      <a href="../jogos-da-semana/">Jogos da semana</a>
+      <a href="../rankings/">Rankings</a>
+      <a href="../loteca/">Loteca</a>
+      <a href="../modelo/" aria-current="page">O modelo</a>
+      <a href="../base-de-dados/">Base de dados</a>
+    </nav>
+    <div class="update num"><span>Atualizado em</span><b>04/11/2026</b></div>
+  </div>
+</header>
+<main>
+<div class="view" data-view="modelo">
+  <div class="band">
+    <canvas class="pitch" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Você está em"><a href="../">Oráculo</a> › O modelo</nav>
+      <h1>O modelo Oráculo<span>Testado em 9.165 jogos reais</span></h1>
+      <p class="lede">Reconstruímos o Brasileirão de 2003 a 2025 e prevemos cada semana como se estivéssemos naquela data, sem olhar para o futuro. Os ajustes foram escolhidos em 2008–2016 e o teste final, em 2017–2025, ficou intocado até o fim.</p>
+    </div>
+  </div>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head"><div><div class="eyebrow">Resultado do teste · 2017–2025</div><h2>Quanto o modelo acerta</h2></div></div>
+      <div class="kpis5" id="kpis"></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap truth">
+      <div>
+        <div class="eyebrow">A pergunta dos 85%</div>
+        <h2 style="font-family:var(--f-display);font-weight:900;font-size:clamp(32px,4.2vw,48px);text-transform:uppercase;line-height:.95;margin:6px 0 14px">Ninguém acerta 85% dos jogos</h2>
+        <p class="muted" style="max-width:58ch">Nem as casas de apostas, que reúnem mais informação que qualquer modelo público. Em 235.806 jogos de 2000 a 2026, o favorito do mercado venceu em metade das vezes. Acima de 85% só existe em recortes: jogos com favorito muito claro, ou previsões de temporada perto do fim.</p>
+        <div class="ceil" id="ceil" style="margin-top:18px"></div>
+      </div>
+      <div class="card" style="padding:18px;display:grid;gap:12px">
+        <div class="eyebrow">Onde passa de 85%</div>
+        <div class="scroll"><table id="where85"></table></div>
+        <p class="note">Esses são os indicadores certos para perseguir 85%: título e rebaixamento ao longo da temporada, não o placar de cada jogo.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap two">
+      <div class="card chartbox">
+        <div class="eyebrow">Momento × histórico</div>
+        <h3 style="font-size:18px;margin:4px 0 10px">Memória longa erra menos quando o modelo só vê gols</h3>
+        <div id="hlchart"></div>
+      </div>
+      <div class="card chartbox">
+        <div class="eyebrow">Calibração · teste 2017–2025</div>
+        <h3 style="font-size:18px;margin:4px 0 10px">Quando o modelo diz 55%, acontece 55%</h3>
+        <div id="calchart"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head"><div><div class="eyebrow">Comparação · mesmos jogos</div><h2>Modelos testados</h2><p>RPS mede o erro de uma previsão de 1X2: quanto menor, melhor. Dupla chance é acertar com os dois resultados mais prováveis.</p></div></div>
+      <div class="card scroll"><table id="cmp"></table></div>
+      <p class="note" style="margin-top:8px">A comparação com o mercado usa os 1.443 jogos de 2017 a 2024 em que as bases de odds e de resultados se casaram com segurança.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head"><div><div class="eyebrow">Testes estatísticos · 3.420 jogos</div><h2>As diferenças são reais?</h2><p>Bootstrap pareado do RPS jogo a jogo e teste de Diebold-Mariano. Diferença positiva significa que o modelo da linha erra mais que o Oráculo v2.</p></div></div>
+      <div class="card scroll"><table id="stbl"></table></div>
+      <p class="note" id="stnote" style="margin-top:8px"></p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap two">
+      <div class="card" style="padding:18px;display:grid;gap:10px">
+        <div class="eyebrow">Aprendizado supervisionado</div>
+        <h3 style="font-size:18px">66 variáveis, dois algoritmos, o mesmo teto</h3>
+        <div class="scroll"><table id="mltbl"></table></div>
+        <p class="note">Logística e gradient boosting treinados só com temporadas anteriores. Na validação (2013–2016) o boosting chegou a 53,1%; no teste caiu para o nível do v2. Sinal de mudança de regime: o mandante ganhou 53% dos jogos em 2018 e 44% em 2022.</p>
+      </div>
+      <div class="card" style="padding:18px;display:grid;gap:10px">
+        <div class="eyebrow">O que o modelo mais usa</div>
+        <h3 style="font-size:18px">Força histórica pesa mais que a forma recente</h3>
+        <div id="imp"></div>
+        <p class="note">Importância por permutação: quanto o log loss piora ao embaralhar cada variável no teste.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head"><div><div class="eyebrow">Teste de temporada · a partir da 31ª rodada</div><h2>Previsão de campeão, ano a ano</h2><p>Mesmo ponto do Brasileirão de hoje. Para cada ano, o modelo simulou o restante com o calendário real.</p></div></div>
+      <div class="card scroll"><table id="seasons"></table></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head"><div><div class="eyebrow">v2.3 · projeção de temporada</div><h2>Parâmetros recalibrados</h2><p>Quanto o desempenho de 2026 pesa (K) e quanta incerteza vai na força de cada time (σ) foram escolhidos em 2006–2015 e provados em 2016–2025, simulando cada temporada a partir das rodadas 25, 31 e 34 com o calendário real.</p></div></div>
+      <div class="card scroll"><table id="calib"></table></div>
+      <p class="note" style="margin-top:8px">G4 certos: dos 4 clubes com maior chance de G4, quantos terminaram no G4. As diferenças entre os métodos são pequenas; o ganho da v2.3 está no log loss do título, que mede se as chances estavam bem dosadas. A linha "só a temporada" é o método usado na Série B.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap perf">
+      <div class="card lab">
+        <div><div class="eyebrow">Laboratório · 3.420 jogos reais</div><h3 style="font-family:var(--f-display);font-weight:800;font-size:28px;text-transform:uppercase;line-height:1">Ajuste você mesmo</h3></div>
+        <p class="muted" style="font-size:14px">Mexa nos dois parâmetros que o ajuste semanal mais altera e veja o erro mudar no teste de 2017–2025.</p>
+        <div class="slider"><label for="s-home"><span>Ajuste no mando de campo</span><span class="num" id="v-home"></span></label><input type="range" id="s-home" min="-0.3" max="0.3" step="0.01"><small>Zero é o valor do modelo. Positivo dá mais força ao mandante.</small></div>
+        <div class="slider"><label for="s-rho"><span>Correção de empates</span><span class="num" id="v-rho"></span></label><input type="range" id="s-rho" min="-0.25" max="0.1" step="0.01"><small>Valores negativos aumentam a chance de 0 x 0 e 1 x 1.</small></div>
+        <div class="verdict num" id="labout" aria-live="polite"></div>
+        <button class="btn ghost" type="button" id="labreset">Voltar aos valores do modelo</button>
+      </div>
+      <div style="display:grid;gap:16px">
+        <div class="eyebrow">Toda segunda-feira</div>
+        <ol class="cycle" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr)">
+          <li><h3>Coleta, 6h</h3><p>Resultados, chutes e escalações da semana entram no banco histórico.</p></li>
+          <li><h3>Conferência</h3><p>Cada previsão congelada é comparada ao resultado: acertos, RPS e calibração.</p></li>
+          <li><h3>Desafio</h3><p>Um desafiante treinado com a semana nova disputa com o atual nas últimas oito semanas.</p></li>
+          <li><h3>Publicação</h3><p>Novas probabilidades no ar e, se houve troca, nova versão no histórico.</p></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head"><div><div class="eyebrow">Transparência</div><h2>Histórico de versões</h2></div></div>
+      <div class="card scroll">
+        <table class="changelog">
+          <thead><tr><th>Versão</th><th>Data</th><th>O que mudou</th><th>Por quê</th></tr></thead>
+          <tbody>
+            <tr><td><b>v2.0</b></td><td class="num">20/10/2026</td><td>Base real do Brasileirão 2003–2025; Poisson com memória longa e leitura de chutes no alvo; forças de 2026 a partir do desempenho da temporada; mata-matas acoplados.</td><td>Validado em 2008–2016 e testado em 3.420 jogos de 2017–2025.</td></tr>
+            <tr><td><b>v2.1</b></td><td class="num">20/10/2026</td><td>Testados dois desafiantes: aprendizado supervisionado (logística e gradient boosting com 66 variáveis pré-jogo) e encolhimento das forças na simulação de temporada.</td><td>Nenhum superou o v2 no teste (diferença de RPS 0,0000, p = 0,84). O v2 foi mantido.</td></tr>
+            <tr><td><b>v2.2</b></td><td class="num">21/10/2026</td><td>Algoritmo genético com 106 modelos (logística, discriminante linear e boosting; 11 grupos de variáveis; PCA; janela; recência; ajuste de empate), retreinados a cada rodada de 2015 a 2019.</td><td>O campeão empatou com o v2 na prova de 2020–2025 (48,7% contra 48,8%; p = 0,78). O v2, mais simples, foi mantido.</td></tr>
+            <tr><td><b>v2.3</b></td><td class="num">21/10/2026</td><td>Foco nas Séries A e B; páginas internacionais retiradas. Série B com acesso direto, playoffs e rebaixamento. Projeção de temporada recalibrada: K de 12 para 20 e σ de 0,07 para 0,12 na Série A; K = 35 e σ = 0,12 na Série B.</td><td>Escolhidos em 2006–2015 e provados em 2016–2025: log loss do título 0,559 contra 0,573, mesmo acerto de G4 e Z4.</td></tr>
+            <tr><td><b>v2.4</b></td><td class="num">21/10/2026</td><td>Páginas de Copa do Brasil, Libertadores e Sul-Americana; estaduais 2027; projeção de longo prazo até 2100; rankings CBF, Conmebol e FIFA com recálculo e ranking histórico. Timemania retirada.</td><td>Estaduais calibrados nas tabelas reais de 2026; dinâmica de longo prazo estimada na base 2003–2025; recálculo FIFA acertou a ordem dos 9 primeiros.</td></tr>
+            <tr><td><b>v2.5</b></td><td class="num">26/10/2026</td><td>Rodada da semana: 8 jogos da 32ª da Série A, 7 da 35ª da Série B e as semifinais de Libertadores e Sul-Americana. Forças reajustadas com atualização bayesiana incremental (prior = forças da semana anterior, peso de K jogos).</td><td>Tabelas conferidas em duas fontes; 50.000 temporadas simuladas por série.</td></tr>
+            <tr><td><b>v2.6</b></td><td class="num">04/11/2026</td><td>Resultados até 04/11 (Série A até a 34ª rodada parcial, Série B até a 36ª, finais da Libertadores e da Sul-Americana definidas, ida das semifinais da Copa do Brasil). Nova página Acerto 2026: previsão de cada rodada desde a 1ª, só com o passado.</td><td>692 jogos de 2026 conferidos contra a tabela oficial antes de entrar no modelo.</td></tr>
+            <tr><td class="muted">v2.7</td><td class="num" id="cl-next">—</td><td class="muted">Primeiro desafio semanal com os jogos de 2026 um a um.</td><td class="muted">Só entra se errar menos nas últimas oito semanas.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head"><div><div class="eyebrow">Base para desenvolvimento</div><h2>Mapa do portal e buscas-alvo</h2></div></div>
+      <div class="card mapbox scroll">
+        <table>
+          <thead><tr><th>Página</th><th>URL</th><th>Buscas que ela deve ganhar</th></tr></thead>
+          <tbody>
+            <tr><td>Série A</td><td><code>/brasileirao-serie-a-2026/</code></td><td class="q">chances de título brasileirão 2026, chance de rebaixamento</td></tr>
+            <tr><td>Jogo</td><td><code>/jogos/2026-10-26-flamengo-x-atletico-mg/</code></td><td class="q">flamengo x atlético-mg probabilidade, onde assistir</td></tr>
+            <tr><td>Série B</td><td><code>/brasileirao-serie-b-2026/</code></td><td class="q">chances de acesso série b 2026, playoffs série b, rebaixamento série b</td></tr>
+            <tr><td>Loteca</td><td><code>/loteca/concurso-XXXX/</code></td><td class="q">palpites loteca da semana</td></tr>
+            <tr><td>Copas</td><td><code>/copa-do-brasil-2026/</code>, <code>/libertadores-2026/</code>, <code>/sul-americana-2026/</code></td><td class="q">chance de título copa do brasil, quem vai ganhar a libertadores 2026</td></tr>
+            <tr><td>Rankings</td><td><code>/rankings/cbf/</code>, <code>/rankings/fifa/</code></td><td class="q">ranking cbf 2026, ranking conmebol 2026, ranking fifa outubro 2026</td></tr>
+            <tr><td>Desempenho</td><td><code>/modelo/desempenho/</code></td><td class="q">taxa de acerto modelo futebol</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</div>
+</main>
+<footer>
+  <div class="wrap">
+    <div><strong>Oráculo do Futebol</strong><p>Probabilidades do futebol brasileiro calculadas com estatística bayesiana e publicadas com transparência. Dados: Brasileirão 2003–2025 (base pública), tabelas e calendários de 2026, jogos de seleções desde 1872 e rankings oficiais da CBF, Conmebol e FIFA.</p></div>
+    <div style="display:grid;gap:10px">
+      <nav aria-label="Rodapé"><a href="../serie-a/">Série A</a><a href="../serie-b/">Série B</a><a href="../copa-do-brasil/">Copa do Brasil</a><a href="../libertadores/">Libertadores</a><a href="../sul-americana/">Sul-Americana</a><a href="../acerto-2026/">Acerto 2026</a><a href="../rankings/">Rankings</a><a href="../loteca/">Loteca</a><a href="../modelo/">O modelo</a><a href="../base-de-dados/">Base de dados</a></nav>
+      <p>Loterias são proibidas para menores de 18 anos. Jogue com responsabilidade.</p>
+    </div>
+  </div>
+</footer>
+<script src="../assets/app.js" defer></script>
+</body>
+</html>
